@@ -11,10 +11,10 @@ function App() {
   
   function addNumberToCurrentOperand(e){
     if(e.target.innerText !== '.'){
-      const newNum = String(currentOperand) + e.target.innerText;
+      const newNum = currentOperand + e.target.innerText;
       setCurrentOperand(newNum);
     } else if (e.target.innerText === '.' && !currentOperand.includes('.')){
-      const newNum = String(currentOperand) + e.target.innerText;
+      const newNum = currentOperand + e.target.innerText;
       setCurrentOperand(newNum);
     }
   }
@@ -25,8 +25,51 @@ function App() {
   }
 
   function handleClickOperation(e){
-    setOperation(e.target.innerText);
-    addNumberToPreviousOperand();
+    if(operation === ''){
+      setOperation(e.target.innerText);
+      addNumberToPreviousOperand();
+    } else{
+      handleClickEqual();
+      setOperation(e.target.innerText);
+      addNumberToPreviousOperand();
+    } 
+  }
+
+  function handleClickEqual(){
+    let result;
+    switch(operation){
+      case '+':
+        result = parseInt(currentOperand) + parseInt(previousOperand);
+        setCurrentOperand(String(result));
+        setPreviousOperand('');
+        setOperation('');
+        break;
+      case '-':
+        result = parseInt(previousOperand) - parseInt(currentOperand);  
+        setCurrentOperand(String(result));
+        setPreviousOperand('');
+        setOperation('');
+        break;
+      case 'x':
+        result = parseInt(previousOperand) * parseInt(currentOperand);  
+        setCurrentOperand(String(result));
+        setPreviousOperand('');
+        setOperation('');
+        break;
+      case '÷':
+        result = parseInt(previousOperand) / parseInt(currentOperand);  
+        setCurrentOperand(String(result));
+        setPreviousOperand('');
+        setOperation('');
+        break;
+
+    }
+  }
+
+  function handleClickClear(){
+    setCurrentOperand('');
+    setPreviousOperand('');
+    setOperation('');
   }
 
   return (
@@ -41,7 +84,7 @@ function App() {
       </div>
     </div>
 
-    <button className='normal pinkLetter'>C</button>
+    <button className='normal pinkLetter' onClick={handleClickClear}>C</button>
     <button className='normal pinkLetter'>M+</button>
     <button className='normal pinkLetter'>Ma</button>
     <button className='pinkBg' onClick={handleClickOperation}>÷</button>
@@ -59,7 +102,7 @@ function App() {
     <button className='pinkBg' onClick={handleClickOperation}>+</button>
     <button className='normal two__span' onClick={addNumberToCurrentOperand}>0</button>
     <button className='normal' onClick={addNumberToCurrentOperand}>.</button>
-    <button className='pinkBg'>=</button>
+    <button className='pinkBg' onClick={handleClickEqual}>=</button>
     
    </div>
   )
