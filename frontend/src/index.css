@@ -75,6 +75,9 @@ button{
 .normal:hover{
     background-color: rgba(48,54,69,0.4);
 }
+.normal:focus{
+    background-color: rgba(48,54,69,0.4);
+}
 
 .pinkLetter{
     color:rgb(201,138,233);
@@ -86,6 +89,9 @@ button{
 }
 
 .pinkBg:hover{
+    background-color: rgba(183,97,214,0.7);
+}
+.pinkBg:focus{
     background-color: rgba(183,97,214,0.7);
 }
 
