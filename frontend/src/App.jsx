@@ -1,6 +1,5 @@
 import { useState, useEffect} from 'react';
-
-
+import { keyPress } from './keypress__function';
 
 function App() {
  
@@ -11,7 +10,12 @@ function App() {
   const [getNumberFromMemory,setGetNumberFromMemory] = useState(true);
   const [override,setOverride] = useState(false);
 
-
+  useEffect(
+    ()=>{
+      document.addEventListener('keydown',keyPress);
+     return ()=>{  document.removeEventListener('keydown',keyPress) }
+    },[]
+  );
 
   useEffect(()=>{
       fetch('/addtomemory',{
@@ -40,7 +44,6 @@ function App() {
   function saveToMemory(){
     setSaveNumberToMemory(prev=>!prev);
   }
-
   
   function addNumberToCurrentOperand(e){
     if(e.target.innerText !== '.'){
@@ -65,10 +68,10 @@ function App() {
   }
 
   function handleClickOperation(e){
-    if(operation === ''){
+    if(operation === '' && currentOperand){
       setOperation(e.target.innerText);
       addNumberToPreviousOperand();
-    } else{
+    } else if (currentOperand){
       const subResult = operations(currentOperand,previousOperand,operation);
       setPreviousOperand (subResult);
       setOperation(e.target.innerText);
@@ -132,32 +135,32 @@ function App() {
 
     <div className='output'>
       <div className='prev'>
-        <p>{previousOperand}{operation}</p>
+        <p>{previousOperand} {operation}</p>
       </div>
       <div className='current'>
         <p>{currentOperand}</p>
       </div>
     </div>
 
-    <button className='normal pinkLetter' onClick={handleClickClear}>C</button>
-    <button className='normal pinkLetter' onClick={saveToMemory}>M+</button>
-    <button className='normal pinkLetter' onClick={readFromMemory}>Mrcl</button>
-    <button className='pinkBg' onClick={handleClickOperation}>÷</button>
-    <button className='normal' onClick={addNumberToCurrentOperand}>7</button>
-    <button className='normal' onClick={addNumberToCurrentOperand}>8</button>
-    <button className='normal' onClick={addNumberToCurrentOperand}>9</button>
-    <button className='pinkBg' onClick={handleClickOperation}>x</button>
-    <button className='normal' onClick={addNumberToCurrentOperand}>4</button>
-    <button className='normal' onClick={addNumberToCurrentOperand}>5</button>
-    <button className='normal' onClick={addNumberToCurrentOperand}>6</button>
-    <button className='pinkBg' onClick={handleClickOperation}>-</button>
-    <button className='normal' onClick={addNumberToCurrentOperand}>1</button>
-    <button className='normal' onClick={addNumberToCurrentOperand}>2</button>
-    <button className='normal' onClick={addNumberToCurrentOperand}>3</button>
-    <button className='pinkBg' onClick={handleClickOperation}>+</button>
-    <button className='normal two__span' onClick={addNumberToCurrentOperand}>0</button>
-    <button className='normal' onClick={addNumberToCurrentOperand}>.</button>
-    <button className='pinkBg' onClick={handleClickEqual}>=</button>
+    <button id="clear" className='normal pinkLetter' onClick={handleClickClear}>C</button>
+    <button id="saveToMemory" className='normal pinkLetter' onClick={saveToMemory}>M+</button>
+    <button id="getFromMemory" className='normal pinkLetter' onClick={readFromMemory}>Mrcl</button>
+    <button id="devide" className='pinkBg' onClick={handleClickOperation}>÷</button>
+    <button id="7" className='normal' onClick={addNumberToCurrentOperand}>7</button>
+    <button id="8" className='normal' onClick={addNumberToCurrentOperand}>8</button>
+    <button id="9" className='normal' onClick={addNumberToCurrentOperand}>9</button>
+    <button id="multiply"className='pinkBg' onClick={handleClickOperation}>x</button>
+    <button id="4" className='normal' onClick={addNumberToCurrentOperand}>4</button>
+    <button id="5" className='normal' onClick={addNumberToCurrentOperand}>5</button>
+    <button id="6" className='normal' onClick={addNumberToCurrentOperand}>6</button>
+    <button id="subtract" className='pinkBg' onClick={handleClickOperation}>-</button>
+    <button id="1" className='normal' onClick={addNumberToCurrentOperand}>1</button>
+    <button id="2" className='normal' onClick={addNumberToCurrentOperand}>2</button>
+    <button id="3" className='normal' onClick={addNumberToCurrentOperand}>3</button>
+    <button id="add" className='pinkBg' onClick={handleClickOperation}>+</button>
+    <button id="0" className='normal two__span' onClick={addNumberToCurrentOperand}>0</button>
+    <button id="." className='normal' onClick={addNumberToCurrentOperand}>.</button>
+    <button id="equal" className='pinkBg' onClick={handleClickEqual}>=</button>
     
    </div>
   )
