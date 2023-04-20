@@ -11,8 +11,13 @@ function App() {
   
   function addNumberToCurrentOperand(e){
     if(e.target.innerText !== '.'){
-      const newNum = currentOperand + e.target.innerText;
-      setCurrentOperand(newNum);
+      if(e.target.innerText === '0' && !currentOperand || currentOperand === '0'  && !previousOperand){
+        setCurrentOperand('0');
+      } else {
+        const newNum = currentOperand + e.target.innerText;
+        setCurrentOperand(newNum);
+
+      }
     } else if (e.target.innerText === '.' && !currentOperand.includes('.')){
       const newNum = currentOperand + e.target.innerText;
       setCurrentOperand(newNum);
