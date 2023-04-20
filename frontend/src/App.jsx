@@ -39,25 +39,25 @@ function App() {
     let result;
     switch(operation){
       case '+':
-        result = parseInt(currentOperand) + parseInt(previousOperand);
+        result = parseFloat(currentOperand) + parseFloat(previousOperand);
         setCurrentOperand(String(result));
         setPreviousOperand('');
         setOperation('');
         break;
       case '-':
-        result = parseInt(previousOperand) - parseInt(currentOperand);  
+        result = parseFloat(previousOperand) - parseFloat(currentOperand);  
         setCurrentOperand(String(result));
         setPreviousOperand('');
         setOperation('');
         break;
       case 'x':
-        result = parseInt(previousOperand) * parseInt(currentOperand);  
+        result = parseFloat(previousOperand) * parseFloat(currentOperand);  
         setCurrentOperand(String(result));
         setPreviousOperand('');
         setOperation('');
         break;
       case '÷':
-        result = parseInt(previousOperand) / parseInt(currentOperand);  
+        result = parseFloat(previousOperand) / parseFloat(currentOperand);  
         setCurrentOperand(String(result));
         setPreviousOperand('');
         setOperation('');
