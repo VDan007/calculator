@@ -8,11 +8,10 @@ function App() {
   const [previousOperand,setPreviousOperand] = useState('');
   const [operation,setOperation] = useState('');
   const [saveNumberToMemory,setSaveNumberToMemory] = useState(true);
+  const [getNumberFromMemory,setGetNumberFromMemory] = useState(true);
 
 
   useEffect(()=>{
-
-
       fetch('/addtomemory',{
         method: 'POST',
         headers:{
@@ -22,8 +21,7 @@ function App() {
           savedNumber: currentOperand
         })
       })
-    
-    
+      console.log(currentOperand);
   },[saveNumberToMemory]);
 
   useEffect(
@@ -31,8 +29,13 @@ function App() {
       fetch('/getfrommemory')
       .then(res=>res.json())
       .then(data=>setCurrentOperand(data))
-    },[saveNumberToMemory]
+    },[getNumberFromMemory]
   );
+
+  function saveToMemory(){
+    setSaveNumberToMemory(prev=>!prev);
+    console.log('works');
+  }
 
   
   function addNumberToCurrentOperand(e){
@@ -115,7 +118,7 @@ function App() {
     </div>
 
     <button className='normal pinkLetter' onClick={handleClickClear}>C</button>
-    <button className='normal pinkLetter'>M+</button>
+    <button className='normal pinkLetter' onClick={saveToMemory}>M+</button>
     <button className='normal pinkLetter'>Mrcl</button>
     <button className='pinkBg' onClick={handleClickOperation}>÷</button>
     <button className='normal' onClick={addNumberToCurrentOperand}>7</button>
