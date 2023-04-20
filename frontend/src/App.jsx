@@ -12,6 +12,7 @@ function App() {
   const [override,setOverride] = useState(false);
 
 
+
   useEffect(()=>{
       fetch('/addtomemory',{
         method: 'POST',
@@ -109,13 +110,13 @@ function App() {
   function operations(currentValue,previousValue,operationType){
     switch(operationType){
       case '+':
-        return String(parseFloat(currentValue) + parseFloat(previousValue));
+        return String( (parseFloat(currentValue) + parseFloat(previousValue)).toFixed(5).replace(/\.?0+$/, '') );
       case '-':
-        return String(parseFloat(previousValue) - parseFloat(currentValue));
+        return String( (parseFloat(previousValue) - parseFloat(currentValue)).toFixed(5).replace(/\.?0+$/, '') );
       case 'x':
-        return String(parseFloat(previousValue) * parseFloat(currentValue));
+        return String( (parseFloat(previousValue) * parseFloat(currentValue)).toFixed(5).replace(/\.?0+$/, '') );
       case '÷':
-        return String(parseFloat(previousValue) / parseFloat(currentValue));
+        return String( (parseFloat(previousValue) / parseFloat(currentValue)).toFixed(5).replace(/\.?0+$/, '') );
 
     }
   }
