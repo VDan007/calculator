@@ -28,40 +28,39 @@ function App() {
     if(operation === ''){
       setOperation(e.target.innerText);
       addNumberToPreviousOperand();
-    } else{
-      handleClickEqual();
-      setOperation(e.target.innerText);
-      addNumberToPreviousOperand();
-    } 
+    } ////multiple operations without pressing equal is missing
   }
 
   function handleClickEqual(){
-    let result;
-    switch(operation){
-      case '+':
-        result = parseFloat(currentOperand) + parseFloat(previousOperand);
-        setCurrentOperand(String(result));
-        setPreviousOperand('');
-        setOperation('');
-        break;
-      case '-':
-        result = parseFloat(previousOperand) - parseFloat(currentOperand);  
-        setCurrentOperand(String(result));
-        setPreviousOperand('');
-        setOperation('');
-        break;
-      case 'x':
-        result = parseFloat(previousOperand) * parseFloat(currentOperand);  
-        setCurrentOperand(String(result));
-        setPreviousOperand('');
-        setOperation('');
-        break;
-      case '÷':
-        result = parseFloat(previousOperand) / parseFloat(currentOperand);  
-        setCurrentOperand(String(result));
-        setPreviousOperand('');
-        setOperation('');
-        break;
+    if(currentOperand && previousOperand){
+      let result;
+      switch(operation){
+        case '+':
+          result = parseFloat(currentOperand) + parseFloat(previousOperand);
+          setCurrentOperand(String(result));
+          setPreviousOperand('');
+          setOperation('');
+          break;
+        case '-':
+          result = parseFloat(previousOperand) - parseFloat(currentOperand);  
+          setCurrentOperand(String(result));
+          setPreviousOperand('');
+          setOperation('');
+          break;
+        case 'x':
+          result = parseFloat(previousOperand) * parseFloat(currentOperand);  
+          setCurrentOperand(String(result));
+          setPreviousOperand('');
+          setOperation('');
+          break;
+        case '÷':
+          result = parseFloat(previousOperand) / parseFloat(currentOperand);  
+          setCurrentOperand(String(result));
+          setPreviousOperand('');
+          setOperation('');
+          break;
+  
+      }
 
     }
   }
