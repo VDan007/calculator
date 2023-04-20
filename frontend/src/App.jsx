@@ -47,11 +47,13 @@ function App() {
         setCurrentOperand('0');
       } else {
         const newNum =  override? e.target.innerText :currentOperand + e.target.innerText;
+        setOverride(false);
         setCurrentOperand(newNum);
 
       }
     } else if (e.target.innerText === '.' && !currentOperand.includes('.')){
-      const newNum =  override? e.target.innerText :currentOperand + e.target.innerText;c
+      const newNum =  override? e.target.innerText :currentOperand + e.target.innerText;
+      setOverride(false);
       setCurrentOperand(newNum);
     }
   }
