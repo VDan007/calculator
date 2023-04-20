@@ -32,9 +32,13 @@ function App() {
     },[getNumberFromMemory]
   );
 
+  function readFromMemory(){
+    console.log("read from mmemory");
+    setGetNumberFromMemory(prev=>!prev);
+  }
+
   function saveToMemory(){
     setSaveNumberToMemory(prev=>!prev);
-    console.log('works');
   }
 
   
@@ -119,7 +123,7 @@ function App() {
 
     <button className='normal pinkLetter' onClick={handleClickClear}>C</button>
     <button className='normal pinkLetter' onClick={saveToMemory}>M+</button>
-    <button className='normal pinkLetter'>Mrcl</button>
+    <button className='normal pinkLetter' onClick={readFromMemory}>Mrcl</button>
     <button className='pinkBg' onClick={handleClickOperation}>÷</button>
     <button className='normal' onClick={addNumberToCurrentOperand}>7</button>
     <button className='normal' onClick={addNumberToCurrentOperand}>8</button>
