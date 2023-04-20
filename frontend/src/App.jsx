@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect} from 'react';
 
 
 
@@ -67,40 +67,55 @@ function App() {
     if(operation === ''){
       setOperation(e.target.innerText);
       addNumberToPreviousOperand();
-    } ////multiple operations without pressing equal is missing
+    } else{
+      const subResult = operations(currentOperand,previousOperand,operation);
+      setPreviousOperand (subResult);
+      setOperation(e.target.innerText);
+      setCurrentOperand('');
+    }
   }
 
   function handleClickEqual(){
     if(currentOperand && previousOperand){
-      let result;
+     
       setOverride(true);
       switch(operation){
         case '+':
-          result = parseFloat(currentOperand) + parseFloat(previousOperand);
-          setCurrentOperand(String(result));
+          setCurrentOperand(operations(currentOperand,previousOperand,'+'));
           setPreviousOperand('');
           setOperation('');
           break;
         case '-':
-          result = parseFloat(previousOperand) - parseFloat(currentOperand);  
-          setCurrentOperand(String(result));
+          setCurrentOperand(operations(currentOperand,previousOperand,'-'));
           setPreviousOperand('');
           setOperation('');
           break;
         case 'x':
-          result = parseFloat(previousOperand) * parseFloat(currentOperand);  
-          setCurrentOperand(String(result));
+          setCurrentOperand(operations(currentOperand,previousOperand,'x'));
           setPreviousOperand('');
           setOperation('');
           break;
         case '÷':
-          result = parseFloat(previousOperand) / parseFloat(currentOperand);  
-          setCurrentOperand(String(result));
+          setCurrentOperand(operations(currentOperand,previousOperand,'÷'));
           setPreviousOperand('');
           setOperation('');
           break;
   
       }
+
+    }
+  }
+
+  function operations(currentValue,previousValue,operationType){
+    switch(operationType){
+      case '+':
+        return String(parseFloat(currentValue) + parseFloat(previousValue));
+      case '-':
+        return String(parseFloat(previousValue) - parseFloat(currentValue));
+      case 'x':
+        return String(parseFloat(previousValue) * parseFloat(currentValue));
+      case '÷':
+        return String(parseFloat(previousValue) / parseFloat(currentValue));
 
     }
   }

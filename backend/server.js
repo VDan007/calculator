@@ -4,8 +4,8 @@ const fs = require('fs');
 
 const app = express();
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 
 
@@ -22,10 +22,11 @@ app.use(express.static("dist"));
 app.get("/getfrommemory", (req, res) => {
    try{
     const savedNumber = fs.readFileSync('./db.txt','utf8');
-    console.log(savedNumber);
-    res.send(JSON.stringify(savedNumber));
+    res.send(JSON.stringify(savedNumber)).status(200);
+
    } catch(err){
     console.log(err);
+    res.status(400).end();
    } 
 
 });
@@ -37,8 +38,10 @@ app.post("/addtomemory",(req,res)=>{
     
     try{
         fs.writeFileSync('./db.txt',numberToSave);
+        res.status(200);
     } catch(err){
         console.log(err);
+        res.status(400).end();
     }
     
 })
