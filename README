@@ -5,7 +5,7 @@ I suspect you have node installed..:)
 
 To spin up the calculator please:
 - clone this repo
-- cd FullStackCalculator/backend
+- cd fullStackCalculator/backend
 - npm install
 - node server
 - in browser open localhost:8888
