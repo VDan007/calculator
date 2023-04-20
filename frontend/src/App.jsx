@@ -9,6 +9,7 @@ function App() {
   const [operation,setOperation] = useState('');
   const [saveNumberToMemory,setSaveNumberToMemory] = useState(true);
   const [getNumberFromMemory,setGetNumberFromMemory] = useState(true);
+  const [override,setOverride] = useState(false);
 
 
   useEffect(()=>{
@@ -21,7 +22,6 @@ function App() {
           savedNumber: currentOperand
         })
       })
-      console.log(currentOperand);
   },[saveNumberToMemory]);
 
   useEffect(
@@ -33,7 +33,6 @@ function App() {
   );
 
   function readFromMemory(){
-    console.log("read from mmemory");
     setGetNumberFromMemory(prev=>!prev);
   }
 
@@ -47,12 +46,12 @@ function App() {
       if(e.target.innerText === '0' && !currentOperand || currentOperand === '0'  && !previousOperand){
         setCurrentOperand('0');
       } else {
-        const newNum = currentOperand + e.target.innerText;
+        const newNum =  override? e.target.innerText :currentOperand + e.target.innerText;
         setCurrentOperand(newNum);
 
       }
     } else if (e.target.innerText === '.' && !currentOperand.includes('.')){
-      const newNum = currentOperand + e.target.innerText;
+      const newNum =  override? e.target.innerText :currentOperand + e.target.innerText;c
       setCurrentOperand(newNum);
     }
   }
@@ -72,6 +71,7 @@ function App() {
   function handleClickEqual(){
     if(currentOperand && previousOperand){
       let result;
+      setOverride(true);
       switch(operation){
         case '+':
           result = parseFloat(currentOperand) + parseFloat(previousOperand);
