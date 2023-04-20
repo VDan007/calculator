@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 
 
 function App() {
-
+ 
   const [currentOperand,setCurrentOperand] = useState('');
   const [previousOperand,setPreviousOperand] = useState('');
   const [operation,setOperation] = useState('');
@@ -11,17 +11,28 @@ function App() {
 
 
   useEffect(()=>{
-    fetch('/addtomemory',{
-      method: 'POST',
-      headers:{
-        'Content-Type': 'application/json'
-      },
-      body: {
-        savedNumber: currentOperand
-      }
-    })
+
+
+      fetch('/addtomemory',{
+        method: 'POST',
+        headers:{
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          savedNumber: currentOperand
+        })
+      })
+    
     
   },[saveNumberToMemory]);
+
+  useEffect(
+    ()=>{
+      fetch('/getfrommemory')
+      .then(res=>res.json())
+      .then(data=>setCurrentOperand(data))
+    },[saveNumberToMemory]
+  );
 
   
   function addNumberToCurrentOperand(e){
