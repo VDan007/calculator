@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 
@@ -7,6 +7,21 @@ function App() {
   const [currentOperand,setCurrentOperand] = useState('');
   const [previousOperand,setPreviousOperand] = useState('');
   const [operation,setOperation] = useState('');
+  const [saveNumberToMemory,setSaveNumberToMemory] = useState(true);
+
+
+  useEffect(()=>{
+    fetch('/addtomemory',{
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json'
+      },
+      body: {
+        savedNumber: currentOperand
+      }
+    })
+    
+  },[saveNumberToMemory]);
 
   
   function addNumberToCurrentOperand(e){
@@ -90,7 +105,7 @@ function App() {
 
     <button className='normal pinkLetter' onClick={handleClickClear}>C</button>
     <button className='normal pinkLetter'>M+</button>
-    <button className='normal pinkLetter'>Ma</button>
+    <button className='normal pinkLetter'>Mrcl</button>
     <button className='pinkBg' onClick={handleClickOperation}>÷</button>
     <button className='normal' onClick={addNumberToCurrentOperand}>7</button>
     <button className='normal' onClick={addNumberToCurrentOperand}>8</button>
