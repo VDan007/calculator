@@ -1,0 +1,27 @@
+Hi,
+Thank You for checking out my work.
+
+I suspect you have node installed..:)
+
+To spin up the calculator please:
+- clone this repo
+- cd FullStackCalculator/backend
+- npm install
+- node server
+- in browser open localhost:8888
+
+The app has all the required functions and can be used with 
+keyboard as well.
+(keyCodes set up for Macbook Air, US keyboard)
+
+0...9     => numbers
+.         => dot
+a         => addition
+s         => subtraction
+x         => multiplication
+d         => division
+enter     => equal
+m         => add to memory
+r         => retrieve from memory
+backspace => clear
+
